@@ -29,6 +29,30 @@ public class Person {
     public Person() {
     }
 
+    /**
+     *
+     * @param id
+     * @param fullName
+     * @param birthDate
+     * @param urlIMDB
+     */
+    public Person(String id, String fullName, LocalDate birthDate, String urlIMDB) {
+        this.id = id;
+        this.fullName = fullName;
+        this.birthDate = birthDate;
+        this.urlIMDB = urlIMDB;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id='" + id + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", birthDate=" + birthDate +
+                ", urlIMDB='" + urlIMDB + '\'' +
+                ", birthplace=" + birthplace +
+                '}';
+    }
 
     public String getId() {
         return id;
