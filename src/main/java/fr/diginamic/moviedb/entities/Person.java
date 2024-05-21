@@ -22,7 +22,7 @@ public class Person {
     @Column(name = "urlimdb")
     private String urlIMDB;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_birthplace")
     private Birthplace birthplace;
 

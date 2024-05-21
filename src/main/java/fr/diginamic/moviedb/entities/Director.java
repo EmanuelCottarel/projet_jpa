@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.Set;
 public class Director extends Person {
 
     @ManyToMany(mappedBy = "directors")
-    private Set<Movie> movies;
+    private Set<Movie> movies = new HashSet<Movie>();
 
     public Director() {
     }
@@ -42,5 +43,9 @@ public class Director extends Person {
 
     public void setMovies(Set<Movie> movies) {
         this.movies = movies;
+    }
+
+    public void addMovie(Movie movie) {
+        this.movies.add(movie);
     }
 }

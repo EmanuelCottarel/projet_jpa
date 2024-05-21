@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import fr.diginamic.utils.MovieDeserializer;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -43,11 +44,11 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
     private Set<Actor> mainActors;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "movie_director",
             joinColumns = @JoinColumn(name = "director_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
-    private Set<Director> directors;
+    private Set<Director> directors = new HashSet<Director>();
 
     @ManyToMany
     @JoinTable(name = "movie_type",
@@ -71,7 +72,6 @@ public class Movie {
     }
 
     /**
-     *
      * @param id
      * @param title
      * @param releaseYear
@@ -169,6 +169,15 @@ public class Movie {
 
     public Set<Director> getDirectors() {
         return directors;
+    }
+
+    /**
+     * Add a Director Object to the Director Collection
+     *
+     * @param director
+     */
+    public void addDirector(Director director) {
+        this.directors.add(director);
     }
 
     public void setDirectors(Set<Director> directors) {
