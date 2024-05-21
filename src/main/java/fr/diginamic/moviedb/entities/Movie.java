@@ -1,12 +1,15 @@
 package fr.diginamic.moviedb.entities;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import fr.diginamic.utils.MovieDeserializer;
 import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "movie")
+@JsonDeserialize(using = MovieDeserializer.class)
 public class Movie {
 
     @Id
@@ -17,7 +20,7 @@ public class Movie {
     private String title;
 
     @Column(name = "release_year")
-    private String releaseYear;
+    private Integer releaseYear;
 
     @Column(name = "rating")
     private double rating;
@@ -63,6 +66,47 @@ public class Movie {
     public Movie() {
     }
 
+    public Movie(String title) {
+        this.title = title;
+    }
+
+    /**
+     *
+     * @param id
+     * @param title
+     * @param releaseYear
+     * @param rating
+     * @param summary
+     * @param urlIMDB
+     */
+    public Movie(String id, String title, Integer releaseYear, double rating, String summary, String urlIMDB) {
+        this.id = id;
+        this.title = title;
+        this.releaseYear = releaseYear;
+        this.rating = rating;
+        this.summary = summary;
+        this.urlIMDB = urlIMDB;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", releaseYear='" + releaseYear + '\'' +
+                ", rating=" + rating +
+                ", locations='" + locations + '\'' +
+                ", summary='" + summary + '\'' +
+                ", urlIMDB='" + urlIMDB + '\'' +
+                ", roles=" + roles +
+                ", mainActors=" + mainActors +
+                ", directors=" + directors +
+                ", types=" + types +
+                ", language=" + language +
+                ", country=" + country +
+                '}';
+    }
+
     public String getId() {
         return id;
     }
@@ -75,11 +119,11 @@ public class Movie {
         this.title = title;
     }
 
-    public String getReleaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(String releaseYear) {
+    public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
     }
 

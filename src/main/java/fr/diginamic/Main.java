@@ -2,6 +2,7 @@ package fr.diginamic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.diginamic.moviedb.entities.Movie;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,8 +19,12 @@ public class Main {
 
             if (jsonNode.isArray()){
                 for (JsonNode film : jsonNode){
-                    System.out.println(film);
-                    System.out.println(film.get("id").asText());
+
+                    Movie movie = objectMapper.readerFor(Movie.class).readValue(film);
+
+                    System.out.println(movie);
+//                    System.out.println(film);
+//                    System.out.println(film.get("id").asText());
                     break;
                 }
             }

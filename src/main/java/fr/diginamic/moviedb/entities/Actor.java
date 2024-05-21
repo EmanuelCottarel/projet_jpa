@@ -1,5 +1,6 @@
 package fr.diginamic.moviedb.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
@@ -8,6 +9,9 @@ import java.util.Set;
 
 @Entity
 public class Actor extends Person {
+
+    @Column(name = "height")
+    private Double height;
 
     @OneToMany(mappedBy = "actor")
     private Set<Role> roles;
