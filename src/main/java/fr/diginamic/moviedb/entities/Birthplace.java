@@ -1,11 +1,14 @@
 package fr.diginamic.moviedb.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import fr.diginamic.moviedb.deserializers.BirthplaceDeserializer;
 import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
-@Table(name= "birthplace")
+@Table(name = "birthplace")
+@JsonDeserialize(using = BirthplaceDeserializer.class)
 public class Birthplace {
 
     @Id

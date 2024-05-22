@@ -1,4 +1,4 @@
-package fr.diginamic.utils;
+package fr.diginamic.moviedb.deserializers;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;

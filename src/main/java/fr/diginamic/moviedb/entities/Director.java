@@ -1,7 +1,7 @@
 package fr.diginamic.moviedb.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import fr.diginamic.utils.DirectorDeserializer;
+import fr.diginamic.moviedb.deserializers.DirectorDeserializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
@@ -35,7 +35,6 @@ public class Director extends Person {
     @Override
     public String toString() {
         return "Director{" +
-                "movies=" + movies +
                 "} " + super.toString();
     }
 

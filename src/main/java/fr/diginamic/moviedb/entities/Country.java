@@ -1,11 +1,14 @@
 package fr.diginamic.moviedb.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import fr.diginamic.moviedb.deserializers.CountryDeserializer;
 import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
 @Table(name="country")
+@JsonDeserialize(using = CountryDeserializer.class)
 public class Country {
 
     @Id
@@ -20,6 +23,19 @@ public class Country {
 
     @OneToMany(mappedBy = "country")
     private Set<Movie> movies;
+
+    public Country() {
+    }
+
+    /**
+     *
+     * @param name - the name of the country
+     * @param urlIMDB - IMDB url
+     */
+    public Country(String name, String urlIMDB) {
+        this.name = name;
+        this.urlIMDB = urlIMDB;
+    }
 
     public Integer getId() {
         return id;
@@ -49,6 +65,9 @@ public class Country {
         this.movies = movies;
     }
 
-    public Country() {
+    public void addMovie(Movie movie){
+        this.movies.add(movie);
     }
+
+
 }

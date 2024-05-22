@@ -2,10 +2,13 @@ package fr.diginamic.moviedb.entities;
 
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import fr.diginamic.utils.MovieDeserializer;
+import fr.diginamic.moviedb.deserializers.MovieDeserializer;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -29,7 +32,7 @@ public class Movie {
     @Column(name = "locations")
     private String locations;
 
-    @Column(name = "summary")
+    @Column(name = "summary", columnDefinition = "TEXT")
     private String summary;
 
     @Column(name = "url_imdb")
@@ -44,10 +47,11 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
     private Set<Actor> mainActors;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany()
     @JoinTable(name = "movie_director",
             joinColumns = @JoinColumn(name = "director_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Director> directors = new HashSet<Director>();
 
     @ManyToMany
@@ -60,7 +64,7 @@ public class Movie {
     @JoinColumn(name = "id_language")
     private Language language;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_country")
     private Country country;
 
@@ -105,6 +109,19 @@ public class Movie {
                 ", language=" + language +
                 ", country=" + country +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return Objects.equals(id, movie.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 
     public String getId() {
@@ -177,8 +194,9 @@ public class Movie {
      * @param director
      */
     public void addDirector(Director director) {
-        //            director.addMovie(this);
-        directors.add(director);
+        if (!directors.contains(director)) {
+            directors.add(director);
+        }
     }
 
     public void setDirectors(Set<Director> directors) {
