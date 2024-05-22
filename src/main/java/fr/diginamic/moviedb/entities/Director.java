@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import fr.diginamic.utils.DirectorDeserializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "director")
 @JsonDeserialize(using = DirectorDeserializer.class)
 public class Director extends Person {
 

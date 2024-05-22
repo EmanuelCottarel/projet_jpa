@@ -1,13 +1,11 @@
 package fr.diginamic.moviedb.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
+@Table(name = "actor")
 public class Actor extends Person {
 
     @Column(name = "height")

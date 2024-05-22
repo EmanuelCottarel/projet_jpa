@@ -177,7 +177,8 @@ public class Movie {
      * @param director
      */
     public void addDirector(Director director) {
-        this.directors.add(director);
+        //            director.addMovie(this);
+        directors.add(director);
     }
 
     public void setDirectors(Set<Director> directors) {
