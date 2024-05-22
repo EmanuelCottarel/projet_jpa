@@ -1,5 +1,7 @@
 package fr.diginamic.moviedb.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import fr.diginamic.moviedb.deserializers.PersonDeserializer;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -7,6 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonDeserialize(using = PersonDeserializer.class)
 public class Person {
 
     @Id
@@ -28,6 +31,8 @@ public class Person {
 
     public Person() {
     }
+
+
 
     /**
      *

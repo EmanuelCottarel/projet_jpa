@@ -15,6 +15,6 @@ public class BirthplaceDeserializer extends JsonDeserializer<Birthplace> {
     public Birthplace deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
-        return new Birthplace(node.get("lieuNaissance").asText());
+        return new Birthplace(node.asText());
     }
 }

@@ -41,7 +41,7 @@ public class Movie {
     @OneToMany(mappedBy = "movie")
     private Set<Role> roles;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "main_casting",
             joinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
@@ -225,5 +225,9 @@ public class Movie {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public void addMainActor(Actor actor){
+        this.mainActors.add(actor);
     }
 }
