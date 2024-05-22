@@ -10,7 +10,6 @@ import jakarta.persistence.TypedQuery;
 import java.lang.reflect.Field;
 
 public class CountryRepository extends AbstractRepository {
-    // https://chatgpt.com/c/ba63a751-f0e3-4798-8fc3-eeb7d1e5ef21
 
     /**
      * Find one Country according to the field in parameter

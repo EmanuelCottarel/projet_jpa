@@ -1,11 +1,14 @@
 package fr.diginamic.moviedb.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import fr.diginamic.moviedb.deserializers.LanguageDeserializer;
 import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "language")
+@JsonDeserialize(using = LanguageDeserializer.class)
 public class Language {
 
     @Id
@@ -20,6 +23,10 @@ public class Language {
 
     public Language() {
 
+    }
+
+    public Language(String name) {
+        this.name = name;
     }
 
     public Integer getId() {

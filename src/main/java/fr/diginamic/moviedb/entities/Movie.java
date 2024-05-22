@@ -60,7 +60,7 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "type_id", referencedColumnName = "id"))
     private Set<Type> types;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_language")
     private Language language;
 
