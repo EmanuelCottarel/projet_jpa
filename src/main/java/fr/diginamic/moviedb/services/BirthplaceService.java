@@ -16,7 +16,6 @@ public class BirthplaceService {
     public BirthplaceService() {
     }
 
-    @Transactional
     public Birthplace create(JsonNode birthNode) throws IOException {
         Birthplace birthplace = BirthplaceRepository.findOneBy("name", birthNode.get("lieuNaissance").asText());
         if (birthplace == null) {

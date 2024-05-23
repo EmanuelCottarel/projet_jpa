@@ -32,17 +32,17 @@ public class ConnectionDb {
         if (em == null || !em.isOpen()) {
             em = getEm();
         }
-        if (!em.getTransaction().isActive()) {
-            em.getTransaction().begin();
-        }
+//        if (!em.getTransaction().isActive()) {
+//            em.getTransaction().begin();
+//        }
         return em;
     }
 
     public static void closeConnection() {
         if (em != null && em.isOpen()) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().commit();
-            }
+//            if (em.getTransaction().isActive()) {
+//                em.getTransaction().commit();
+//            }
             em.close();
         }
     }

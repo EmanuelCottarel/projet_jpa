@@ -38,16 +38,16 @@ public class Movie {
     @Column(name = "url_imdb")
     private String urlIMDB;
 
-    @OneToMany(mappedBy = "movie")
-    private Set<Role> roles;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.PERSIST)
+    private Set<Role> roles = new HashSet<Role>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(name = "main_casting",
             joinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
-    private Set<Actor> mainActors;
+    private Set<Actor> mainActors = new HashSet<Actor>();
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "movie_director",
             joinColumns = @JoinColumn(name = "director_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
@@ -213,9 +213,10 @@ public class Movie {
 
     /**
      * Add a Type object to the movie
+     *
      * @param type Type
      */
-    public void addType(Type type){
+    public void addType(Type type) {
         this.types.add(type);
     }
 
@@ -235,7 +236,11 @@ public class Movie {
         this.country = country;
     }
 
-    public void addMainActor(Actor actor){
+    public void addMainActor(Actor actor) {
         this.mainActors.add(actor);
+    }
+
+    public void addRole(Role role){
+        this.roles.add(role);
     }
 }

@@ -1,9 +1,14 @@
 package fr.diginamic.moviedb.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import fr.diginamic.moviedb.deserializers.RoleDeserializer;
 import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "role")
+@JsonDeserialize(using = RoleDeserializer.class)
 public class Role {
 
     @Id
@@ -22,6 +27,33 @@ public class Role {
     private Movie movie;
 
     public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", actor=" + actor +
+                ", movie=" + movie +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(name, role.name) && Objects.equals(actor, role.actor) && Objects.equals(movie, role.movie);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, actor, movie);
     }
 
     public Integer getId() {

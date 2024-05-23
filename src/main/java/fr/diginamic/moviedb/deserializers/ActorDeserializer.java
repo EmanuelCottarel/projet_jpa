@@ -27,7 +27,7 @@ public class ActorDeserializer extends JsonDeserializer<Actor> {
         }
         Double height = null;
         if (node.has("height")) {
-            height = node.get("height").asDouble();
+            height = Double.parseDouble(node.get("height").asText().split(" ")[0]);
         }
         return new Actor(
                 node.get("id").asText(),

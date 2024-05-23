@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.diginamic.moviedb.entities.Birthplace;
 import fr.diginamic.moviedb.entities.Director;
-import fr.diginamic.moviedb.entities.Person;
 import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 
 import java.io.IOException;
 
@@ -19,22 +17,21 @@ public class DirectorService {
     public DirectorService() {
     }
 
-    @Transactional
     public Director create(JsonNode directorNode) throws IOException {
+        Director director = em.find(Director.class, directorNode.get("id").asText());
+        if (director == null) {
+            director = objectMapper.readerFor(Director.class).readValue(directorNode);
 
-        PersonService personService = new PersonService();
-        Person person = personService.create(directorNode);
-//        person = em.merge(person);
+            if (director.getBirthplace() == null && directorNode.get("naissance").has("lieuNaissance")) {
+                BirthplaceService birthplaceService = new BirthplaceService();
+                Birthplace birthplace = birthplaceService.create(directorNode.get("naissance"));
+                em.persist(birthplace);
+                director.setBirthplace(birthplace);
+            }
+            return director;
 
-        Director director = new Director(
-                person.getId(),
-                person.getFullName(),
-                person.getBirthDate(),
-                person.getUrlIMDB()
+        }
 
-        );
-
-        director.setBirthplace(person.getBirthplace());
         return director;
     }
 }

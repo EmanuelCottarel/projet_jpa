@@ -15,7 +15,6 @@ public class LanguageService {
     public LanguageService() {
     }
 
-    @Transactional
     public Language create(JsonNode languageNode) throws IOException {
         Language language = LanguageRepository.findOneBy("name", languageNode.asText().toUpperCase());
         if (language == null) {

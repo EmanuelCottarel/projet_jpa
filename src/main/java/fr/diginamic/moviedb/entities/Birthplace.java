@@ -19,7 +19,10 @@ public class Birthplace {
     private String name;
 
     @OneToMany(mappedBy = "birthplace")
-    private Set<Person> persons;
+    private Set<Actor> actors;
+
+    @OneToMany(mappedBy = "birthplace")
+    private Set<Director> directors;
 
     public Birthplace(String name) {
         this.name = name;

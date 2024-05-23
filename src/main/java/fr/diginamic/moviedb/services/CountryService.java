@@ -15,7 +15,6 @@ public class CountryService {
     public CountryService() {
     }
 
-    @Transactional
     public Country create(JsonNode countryNode) throws IOException {
         Country country = CountryRepository.findOneBy("name", countryNode.get("nom").asText());
         if (country == null) {

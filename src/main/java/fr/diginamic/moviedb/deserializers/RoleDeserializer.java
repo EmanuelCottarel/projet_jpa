@@ -5,17 +5,16 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import fr.diginamic.moviedb.entities.Birthplace;
+import fr.diginamic.moviedb.entities.Role;
 
 import java.io.IOException;
 
-public class BirthplaceDeserializer extends JsonDeserializer<Birthplace> {
+public class RoleDeserializer extends JsonDeserializer<Role> {
 
     @Override
-    public Birthplace deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public Role deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
-        String name = node.asText();
-            return new Birthplace(node.asText());
+        return new Role(node.get("characterName").asText());
     }
 }

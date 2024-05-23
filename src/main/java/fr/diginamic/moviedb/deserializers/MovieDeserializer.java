@@ -11,11 +11,11 @@ import java.io.IOException;
 
 public class MovieDeserializer extends JsonDeserializer<Movie> {
 
+
     @Override
     public Movie deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-//        System.out.println(node);
-        return new Movie(
+        Movie movie = new Movie(
                 node.get("id").asText(),
                 node.get("nom").asText(),
                 node.get("anneeSortie").asInt(),
@@ -23,5 +23,8 @@ public class MovieDeserializer extends JsonDeserializer<Movie> {
                 node.get("plot").asText(),
                 node.get("url").asText()
         );
+
+
+        return movie;
     }
 }

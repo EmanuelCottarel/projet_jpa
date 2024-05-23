@@ -17,7 +17,6 @@ public class TypeService {
     public TypeService() {
     }
 
-    @Transactional
     public Type create(JsonNode languageNode) throws IOException {
         Type type = TypeRepository.findOneBy("name", languageNode.asText().toUpperCase());
         if (type == null) {
