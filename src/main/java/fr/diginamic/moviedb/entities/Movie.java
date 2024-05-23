@@ -83,13 +83,15 @@ public class Movie {
      * @param summary
      * @param urlIMDB
      */
-    public Movie(String id, String title, Integer releaseYear, double rating, String summary, String urlIMDB) {
+    public Movie(String id, String title, Integer releaseYear, double rating, String summary, String urlIMDB, String locations) {
         this.id = id;
         this.title = title;
         this.releaseYear = releaseYear;
         this.rating = rating;
         this.summary = summary;
         this.urlIMDB = urlIMDB;
+        this.locations = locations;
+
     }
 
     @Override
@@ -102,7 +104,6 @@ public class Movie {
                 ", locations='" + locations + '\'' +
                 ", summary='" + summary + '\'' +
                 ", urlIMDB='" + urlIMDB + '\'' +
-                ", roles=" + roles +
                 ", mainActors=" + mainActors +
                 ", directors=" + directors +
                 ", types=" + types +

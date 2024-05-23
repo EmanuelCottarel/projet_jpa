@@ -15,16 +15,21 @@ public class MovieDeserializer extends JsonDeserializer<Movie> {
     @Override
     public Movie deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-        Movie movie = new Movie(
+
+        String location = "";
+        if (node.has("lieuTournage")) {
+            JsonNode locationNode = node.get("lieuTournage");
+            location = location.concat(locationNode.get("ville").asText()).concat(", ").concat(locationNode.get("etatDept").asText()).concat(", ").concat(locationNode.get("pays").asText());
+        }
+
+        return new Movie(
                 node.get("id").asText(),
                 node.get("nom").asText(),
                 node.get("anneeSortie").asInt(),
                 node.get("rating").asDouble(),
                 node.get("plot").asText(),
-                node.get("url").asText()
+                node.get("url").asText(),
+                location
         );
-
-
-        return movie;
     }
 }

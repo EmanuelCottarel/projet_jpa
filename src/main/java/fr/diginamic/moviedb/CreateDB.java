@@ -100,8 +100,6 @@ public class CreateDB {
                             }
                         }
 
-
-
                         em.getTransaction().commit();
 
                     } catch (Exception e) {
@@ -110,16 +108,13 @@ public class CreateDB {
                         }
                         e.printStackTrace();
                     } finally {
-                        break;
+//                        break;
                     }
                 }
             }
 
 
         } catch (Exception e) {
-            if (em != null && em.getTransaction().isActive()) {
-//                em.getTransaction().rollback();
-            }
             e.printStackTrace();
         } finally {
             ConnectionDb.closeConnection();

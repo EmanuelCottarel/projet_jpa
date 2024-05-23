@@ -18,6 +18,7 @@ public class RoleService {
     }
 
     public Role create(JsonNode roleNode) throws IOException {
+
         Role role = objectMapper.readerFor(Role.class).readValue(roleNode);
 
         Actor actor = em.find(Actor.class, roleNode.get("acteur").get("id").asText());

@@ -38,8 +38,7 @@ public class Role {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", actor=" + actor +
-                ", movie=" + movie +
+                ", actor=" + actor+
                 '}';
     }
 
