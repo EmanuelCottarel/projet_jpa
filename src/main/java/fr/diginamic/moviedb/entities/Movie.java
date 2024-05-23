@@ -54,11 +54,11 @@ public class Movie {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Director> directors = new HashSet<Director>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "movie_type",
             joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "type_id", referencedColumnName = "id"))
-    private Set<Type> types;
+    private Set<Type> types = new HashSet<Type>();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_language")
@@ -209,6 +209,14 @@ public class Movie {
 
     public void setTypes(Set<Type> types) {
         this.types = types;
+    }
+
+    /**
+     * Add a Type object to the movie
+     * @param type Type
+     */
+    public void addType(Type type){
+        this.types.add(type);
     }
 
     public Language getLanguage() {

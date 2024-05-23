@@ -1,11 +1,14 @@
 package fr.diginamic.moviedb.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import fr.diginamic.moviedb.deserializers.TypeDeserializer;
 import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "type")
+@JsonDeserialize(using = TypeDeserializer.class)
 public class Type {
 
     @Id
@@ -19,6 +22,10 @@ public class Type {
     private Set<Movie> movies;
 
     public Type() {
+    }
+
+    public Type(String name) {
+        this.name = name;
     }
 
     public Integer getId() {

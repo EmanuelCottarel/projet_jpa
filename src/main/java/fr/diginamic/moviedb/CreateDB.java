@@ -3,9 +3,10 @@ package fr.diginamic.moviedb;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.diginamic.moviedb.entities.*;
-import fr.diginamic.moviedb.services.BirthplaceService;
 import fr.diginamic.moviedb.services.CountryService;
+import fr.diginamic.moviedb.services.DirectorService;
 import fr.diginamic.moviedb.services.LanguageService;
+import fr.diginamic.moviedb.services.TypeService;
 import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -30,11 +31,16 @@ public class CreateDB {
             if (jsonNode.isArray()) {
                 for (JsonNode film : jsonNode) {
 
+                    //TODO Ajouter les try catch sur les create
+
                     //Create the movie OR get the existant movie with the corresponding ID
                     Movie movie = em.find(Movie.class, film.get("id").asText());
                     if (movie == null) {
                         movie = objectMapper.readerFor(Movie.class).readValue(film);
+                        em.persist(movie);
                     }
+
+                    System.out.println(movie);
 
 
                     //Create Country associated to the movie
@@ -43,6 +49,7 @@ public class CreateDB {
                         Country country = countryService.create(film.get("pays"));
                         movie.setCountry(country);
                     }
+                    em.persist(movie);
 
                     //Create Language associated to the movie
                     if (film.has("langue")) {
@@ -50,10 +57,29 @@ public class CreateDB {
                         Language language = languageService.create(film.get("langue"));
                         movie.setLanguage(language);
                     }
+                    em.persist(movie);
 
-                    // Create Directors associated to the movie
-                    for (JsonNode directorNode : film.get("realisateurs")) {
-                        createDirector(directorNode, em, objectMapper, movie);
+                    //Create movie Types associated to the movie
+                    if (film.has("genres")) {
+                        for (JsonNode typeNode : film.get("genres")) {
+                            TypeService typeService = new TypeService();
+                            Type type = typeService.create(typeNode);
+                            movie.addType(type);
+                        }
+                    }
+                    em.persist(movie);
+                    System.out.println(movie);
+
+                    //Create Directors associated to the movie
+                    if (film.has("realisateurs")) {
+                        for (JsonNode directorNode : film.get("realisateurs")) {
+                            DirectorService directorService = new DirectorService();
+                            Director director = directorService.create(directorNode);
+                            em.persist(director);
+                            if (!movie.getDirectors().contains(director)) {
+                                movie.addDirector(director);
+                            }
+                        }
                     }
 
                     //Create Main casting
@@ -65,7 +91,7 @@ public class CreateDB {
 
                     em.persist(movie);
 
-//                    break;
+                    break;
                 }
             }
 
@@ -138,19 +164,4 @@ public class CreateDB {
 
     }
 
-
-    private static void createDirector(JsonNode directorNode, EntityManager em, ObjectMapper objectMapper, Movie movie) throws IOException {
-        Director director = em.find(Director.class, directorNode.get("id").asText());
-        if (director == null) {
-            director = objectMapper.readerFor(Director.class).readValue(directorNode);
-            em.persist(director);
-        }
-        if (director.getBirthplace() == null && directorNode.get("naissance").has("lieuNaissance")) {
-            BirthplaceService birthplaceService = new BirthplaceService();
-            Birthplace birthplace = birthplaceService.create(directorNode.get("naissance"));
-            director.setBirthplace(birthplace);
-
-        }
-        movie.addDirector(director);
-    }
 }

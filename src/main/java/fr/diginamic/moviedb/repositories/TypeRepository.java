@@ -1,6 +1,7 @@
 package fr.diginamic.moviedb.repositories;
 
-import fr.diginamic.moviedb.entities.Birthplace;
+import fr.diginamic.moviedb.entities.Language;
+import fr.diginamic.moviedb.entities.Type;
 import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -9,25 +10,25 @@ import jakarta.persistence.TypedQuery;
 
 import java.lang.reflect.Field;
 
-public class BirthplaceRepository extends AbstractRepository {
+public class TypeRepository extends AbstractRepository {
 
     /**
-     * Find one Birthplace according to the field in parameter
+     * Find one fr.diginamic.moviedb.entities.Type according to the field in parameter
      * @param field - the searched field
      * @param value - the searched value
-     * @return a Birthplace objet
+     * @return a fr.diginamic.moviedb.entities.Type objet
      */
-    public static Birthplace findOneBy(String field, String value) {
+    public static Type findOneBy(String field, String value) {
 
         if (!isValidField(field)) {
             throw new IllegalArgumentException("Unrecognized field: " + field);
         }
-        EntityManager em = ConnectionDb.getEm();
 
-        Birthplace result = null;
+        EntityManager em = ConnectionDb.getEm();
+        Type result = null;
         try {
-            String jpql = "SELECT b FROM Birthplace b WHERE b." + field + " LIKE :value";
-            TypedQuery<Birthplace> query = em.createQuery(jpql, Birthplace.class);
+            String jpql = "SELECT b FROM Type b WHERE b." + field + " LIKE :value";
+            TypedQuery<Type> query = em.createQuery(jpql, Type.class);
             query.setParameter("value", value);
             result = query.getSingleResult();
         } catch (NoResultException e) {
@@ -40,12 +41,12 @@ public class BirthplaceRepository extends AbstractRepository {
     }
 
     /**
-     * Check if the fieldName value match a field of the Birthplace Class to avoid SQL injection.
+     * Check if the fieldName value match a field of the Type Class to avoid SQL injection.
      * @param fieldName - the searched field
      * @return boolean - true if the field match
      */
     private static boolean isValidField(String fieldName) {
-        for (Field field : Birthplace.class.getDeclaredFields()) {
+        for (Field field : Type.class.getDeclaredFields()) {
             if (field.getName().equals(fieldName)) {
                 return true;
             }
