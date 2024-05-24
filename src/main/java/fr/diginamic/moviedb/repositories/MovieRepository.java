@@ -8,8 +8,11 @@ import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.TypedQuery;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 public class MovieRepository extends AbstractRepository {
+
+    private final EntityManager em = ConnectionDb.getEm();
 
     /**
      * Find one Movie according to the field in parameter
@@ -24,7 +27,6 @@ public class MovieRepository extends AbstractRepository {
             throw new IllegalArgumentException("Unrecognized field: " + field);
         }
 
-        EntityManager em = ConnectionDb.getEm();
         Movie result = null;
         try {
             String jpql = "SELECT m FROM Movie m WHERE m." + field + " LIKE :value";
@@ -38,6 +40,19 @@ public class MovieRepository extends AbstractRepository {
         }
         return result;
 
+    }
+
+    /**
+     * Search Movie realeased between two years
+     * @param startYear - begin year
+     * @param endYear - end year
+     * @return List<Movie>
+     */
+    public List<Movie> findMoviesBetweenYears(int startYear, int endYear) {
+        return em.createQuery("SELECT m FROM Movie m WHERE m.releaseYear BETWEEN :startYear AND :endYear ORDER BY m.releaseYear ASC", Movie.class)
+                .setParameter("startYear", startYear)
+                .setParameter("endYear", endYear)
+                .getResultList();
     }
 
     /**
