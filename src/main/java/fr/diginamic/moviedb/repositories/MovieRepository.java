@@ -69,7 +69,13 @@ public class MovieRepository extends AbstractRepository {
                 .getResultList();
     }
 
-
+    public List<Movie> findMoviesBetweenYearsWithActor(int startYear, int endYear, Actor actor) {
+        return em.createQuery("SELECT DISTINCT m FROM Movie m JOIN m.roles r WHERE (m.releaseYear BETWEEN :startYear AND :endYear) AND r.actor = :actor ORDER BY m.releaseYear ASC", Movie.class)
+                .setParameter("startYear", startYear)
+                .setParameter("endYear", endYear)
+                .setParameter("actor", actor)
+                .getResultList();
+    }
 
     /**
      * Check if the fieldName value match a field of the Movie Class to avoid SQL injection.

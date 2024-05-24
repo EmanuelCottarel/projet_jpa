@@ -60,7 +60,11 @@ public class SearchMenu {
                 commonActorsByMoviesService.search(scanner);
                 showMenu(scanner);
                 break;
-
+            case 6:
+                MovieInPeriodWithActorService movieInPeriodWithActorService = new MovieInPeriodWithActorService();
+                movieInPeriodWithActorService.search(scanner);
+                showMenu(scanner);
+                break;
         }
     }
 }
