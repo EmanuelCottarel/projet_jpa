@@ -1,6 +1,7 @@
 package fr.diginamic.menudb;
 
 import fr.diginamic.menudb.services.ActorFilmographyService;
+import fr.diginamic.menudb.services.MovieCastingService;
 
 import java.util.Scanner;
 
@@ -38,6 +39,11 @@ public class SearchMenu {
             case 1:
                 ActorFilmographyService actorFilmographyService = new ActorFilmographyService();
                 actorFilmographyService.search(scanner);
+                showMenu(scanner);
+                break;
+            case 2:
+                MovieCastingService movieCastingService =  new MovieCastingService();
+                movieCastingService.search(scanner);
                 showMenu(scanner);
                 break;
 

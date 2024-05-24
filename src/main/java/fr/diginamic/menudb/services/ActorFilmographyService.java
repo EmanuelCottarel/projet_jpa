@@ -19,17 +19,17 @@ public class ActorFilmographyService extends AbstractMenuService {
         }
         Actor actor = null;
 
-        while(actor == null){
-            System.out.println("Veuillez saisir un nom complet au format 'prenom nom':");
+        System.out.println("Veuillez saisir un nom complet au format 'prenom nom':");
+        while (actor == null) {
             String name = scanner.nextLine();
             actor = actorRepository.findOneBy("fullName", name);
-            if(actor == null){
+            if (actor == null) {
                 System.err.println("Cet acteur n'existe pas, veuillez saisir le nom complet au format 'prenom nom':");
             }
         }
 
         Set<Role> roles = actor.getRoles();
         System.out.println("Voici la filmographie de" + actor.getFullName() + ":");
-        roles.forEach(role -> System.out.println(role.getMovie().getTitle() + " - " + role.getName()));
+        roles.forEach(role -> System.out.println(" - " + role.getMovie().getTitle() + " - " + role.getName()));
     }
 }
