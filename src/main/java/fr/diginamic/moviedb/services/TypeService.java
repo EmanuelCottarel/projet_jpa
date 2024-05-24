@@ -14,11 +14,13 @@ public class TypeService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private final TypeRepository typeRepository = new TypeRepository();
+
     public TypeService() {
     }
 
     public Type create(JsonNode languageNode) throws IOException {
-        Type type = TypeRepository.findOneBy("name", languageNode.asText().toUpperCase());
+        Type type = typeRepository.findOneBy("name", languageNode.asText().toUpperCase());
         if (type == null) {
             type = objectMapper.readerFor(Type.class).readValue(languageNode);
         }

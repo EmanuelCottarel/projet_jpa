@@ -35,11 +35,9 @@ public class Role {
 
     @Override
     public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", actor=" + actor+
-                '}';
+        return movie.getTitle() +
+                " - name='" + name + '\'' +
+                ", actor=" + actor.getFullName();
     }
 
     @Override

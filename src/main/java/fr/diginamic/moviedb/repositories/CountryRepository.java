@@ -17,7 +17,7 @@ public class CountryRepository extends AbstractRepository {
      * @param value - the searched value
      * @return a Country objet
      */
-    public static Country findOneBy(String field, String value) {
+    public Country findOneBy(String field, String value) {
 
         if (!isValidField(field)) {
             throw new IllegalArgumentException("Unrecognized field: " + field);
@@ -44,7 +44,7 @@ public class CountryRepository extends AbstractRepository {
      * @param fieldName - the searched field
      * @return boolean - true if the field match
      */
-    private static boolean isValidField(String fieldName) {
+    public boolean isValidField(String fieldName) {
         for (Field field : Country.class.getDeclaredFields()) {
             if (field.getName().equals(fieldName)) {
                 return true;

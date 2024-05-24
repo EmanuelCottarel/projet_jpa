@@ -12,11 +12,13 @@ public class CountryService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private final CountryRepository countryRepository = new CountryRepository();
+
     public CountryService() {
     }
 
     public Country create(JsonNode countryNode) throws IOException {
-        Country country = CountryRepository.findOneBy("name", countryNode.get("nom").asText());
+        Country country = countryRepository.findOneBy("name", countryNode.get("nom").asText());
         if (country == null) {
             country = objectMapper.readerFor(Country.class).readValue(countryNode);
         }

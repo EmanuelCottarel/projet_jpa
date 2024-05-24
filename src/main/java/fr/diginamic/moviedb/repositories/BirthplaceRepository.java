@@ -17,7 +17,7 @@ public class BirthplaceRepository extends AbstractRepository {
      * @param value - the searched value
      * @return a Birthplace objet
      */
-    public static Birthplace findOneBy(String field, String value) {
+    public Birthplace findOneBy(String field, String value) {
 
         if (!isValidField(field)) {
             throw new IllegalArgumentException("Unrecognized field: " + field);
@@ -44,7 +44,7 @@ public class BirthplaceRepository extends AbstractRepository {
      * @param fieldName - the searched field
      * @return boolean - true if the field match
      */
-    private static boolean isValidField(String fieldName) {
+    public boolean isValidField(String fieldName) {
         for (Field field : Birthplace.class.getDeclaredFields()) {
             if (field.getName().equals(fieldName)) {
                 return true;

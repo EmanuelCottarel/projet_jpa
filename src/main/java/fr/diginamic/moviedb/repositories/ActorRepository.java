@@ -1,6 +1,6 @@
 package fr.diginamic.moviedb.repositories;
 
-import fr.diginamic.moviedb.entities.Country;
+import fr.diginamic.moviedb.entities.Actor;
 import fr.diginamic.moviedb.entities.Language;
 import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
@@ -10,25 +10,25 @@ import jakarta.persistence.TypedQuery;
 
 import java.lang.reflect.Field;
 
-public class LanguageRepository extends AbstractRepository {
+public class ActorRepository extends AbstractRepository {
 
     /**
-     * Find one fr.diginamic.moviedb.entities.Language according to the field in parameter
+     * Find one Actor according to the field in parameter
      * @param field - the searched field
      * @param value - the searched value
-     * @return a fr.diginamic.moviedb.entities.Language objet
+     * @return a Actor objet
      */
-    public Language findOneBy(String field, String value) {
+    public Actor findOneBy(String field, String value) {
 
         if (!isValidField(field)) {
             throw new IllegalArgumentException("Unrecognized field: " + field);
         }
 
         EntityManager em = ConnectionDb.getEm();
-        Language result = null;
+        Actor result = null;
         try {
-            String jpql = "SELECT b FROM Language b WHERE b." + field + " LIKE :value";
-            TypedQuery<Language> query = em.createQuery(jpql, Language.class);
+            String jpql = "SELECT a FROM Actor a WHERE a." + field + " LIKE :value";
+            TypedQuery<Actor> query = em.createQuery(jpql, Actor.class);
             query.setParameter("value", value);
             result = query.getSingleResult();
         } catch (NoResultException e) {
@@ -41,12 +41,12 @@ public class LanguageRepository extends AbstractRepository {
     }
 
     /**
-     * Check if the fieldName value match a field of the Language Class to avoid SQL injection.
+     * Check if the fieldName value match a field of the Actor Class to avoid SQL injection.
      * @param fieldName - the searched field
      * @return boolean - true if the field match
      */
     public boolean isValidField(String fieldName) {
-        for (Field field : Language.class.getDeclaredFields()) {
+        for (Field field : Actor.class.getDeclaredFields()) {
             if (field.getName().equals(fieldName)) {
                 return true;
             }

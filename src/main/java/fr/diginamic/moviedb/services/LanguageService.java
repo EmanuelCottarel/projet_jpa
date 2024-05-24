@@ -12,11 +12,13 @@ public class LanguageService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private final LanguageRepository languageRepository = new LanguageRepository();
+
     public LanguageService() {
     }
 
     public Language create(JsonNode languageNode) throws IOException {
-        Language language = LanguageRepository.findOneBy("name", languageNode.asText().toUpperCase());
+        Language language = languageRepository.findOneBy("name", languageNode.asText().toUpperCase());
         if (language == null) {
             language = objectMapper.readerFor(Language.class).readValue(languageNode);
         }

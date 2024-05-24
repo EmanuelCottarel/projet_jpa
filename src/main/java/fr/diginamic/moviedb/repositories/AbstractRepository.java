@@ -2,7 +2,7 @@ package fr.diginamic.moviedb.repositories;
 
 public abstract class AbstractRepository {
 
-    public static Object findOneBy(String field, String value) {
-        return null;
-    }
+    public abstract Object findOneBy(String field, String value);
+
+    public abstract boolean isValidField(String fieldName);
 }
