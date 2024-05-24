@@ -1,5 +1,6 @@
 package fr.diginamic.moviedb.repositories;
 
+import fr.diginamic.moviedb.entities.Actor;
 import fr.diginamic.moviedb.entities.Movie;
 import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
@@ -54,6 +55,21 @@ public class MovieRepository extends AbstractRepository {
                 .setParameter("endYear", endYear)
                 .getResultList();
     }
+
+    /**
+     * Find the movies where two given actors played in
+     * @param actor1
+     * @param actor2
+     * @return a List of Movie
+     */
+    public List<Movie> findCommonMoviesForTwoActors(Actor actor1, Actor actor2) {
+        return em.createQuery("SELECT m FROM Movie m JOIN m.roles r1 JOIN m.roles r2 WHERE r1.actor = :actor1 AND r2.actor = :actor2", Movie.class)
+                .setParameter("actor1", actor1)
+                .setParameter("actor2", actor2)
+                .getResultList();
+    }
+
+
 
     /**
      * Check if the fieldName value match a field of the Movie Class to avoid SQL injection.

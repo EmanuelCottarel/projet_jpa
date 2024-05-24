@@ -2,6 +2,7 @@ package fr.diginamic.moviedb.repositories;
 
 import fr.diginamic.moviedb.entities.Actor;
 import fr.diginamic.moviedb.entities.Language;
+import fr.diginamic.moviedb.entities.Movie;
 import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -9,8 +10,11 @@ import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.TypedQuery;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 public class ActorRepository extends AbstractRepository {
+
+    private final EntityManager em = ConnectionDb.getEm();
 
     /**
      * Find one Actor according to the field in parameter
@@ -24,7 +28,6 @@ public class ActorRepository extends AbstractRepository {
             throw new IllegalArgumentException("Unrecognized field: " + field);
         }
 
-        EntityManager em = ConnectionDb.getEm();
         Actor result = null;
         try {
             String jpql = "SELECT a FROM Actor a WHERE a." + field + " LIKE :value";
@@ -52,5 +55,19 @@ public class ActorRepository extends AbstractRepository {
             }
         }
         return false;
+    }
+
+    /**
+     * Find common actors between two different movies
+     * @param movie1
+     * @param movie2
+     * @return a list of the commons actors
+     */
+    public List<Actor> findCommonActorsForTwoMovies(Movie movie1, Movie movie2) {
+
+        return em.createQuery("SELECT DISTINCT a FROM Actor a JOIN a.roles r1 JOIN a.roles r2 WHERE r1.movie = :movie1 AND r2.movie = :movie2", Actor.class)
+                .setParameter("movie1", movie1)
+                .setParameter("movie2", movie2)
+                .getResultList();
     }
 }

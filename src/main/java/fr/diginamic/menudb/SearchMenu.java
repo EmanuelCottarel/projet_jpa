@@ -1,8 +1,6 @@
 package fr.diginamic.menudb;
 
-import fr.diginamic.menudb.services.ActorFilmographyService;
-import fr.diginamic.menudb.services.MovieCastingService;
-import fr.diginamic.menudb.services.MovieInPeriodService;
+import fr.diginamic.menudb.services.*;
 
 import java.util.Scanner;
 
@@ -50,6 +48,16 @@ public class SearchMenu {
             case 3:
                 MovieInPeriodService movieInPeriodService = new MovieInPeriodService();
                 movieInPeriodService.search(scanner);
+                showMenu(scanner);
+                break;
+            case 4:
+                CommonMoviesByActorsService commonMoviesByActorsService = new CommonMoviesByActorsService();
+                commonMoviesByActorsService.search(scanner);
+                showMenu(scanner);
+                break;
+            case 5:
+                CommonActorsByMoviesService commonActorsByMoviesService = new CommonActorsByMoviesService();
+                commonActorsByMoviesService.search(scanner);
                 showMenu(scanner);
                 break;
 
