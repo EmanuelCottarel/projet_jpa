@@ -17,6 +17,7 @@ public class CountryRepository extends AbstractRepository {
      * @param value - the searched value
      * @return a Country objet
      */
+    @Override
     public Country findOneBy(String field, String value) {
 
         if (!isValidField(field)) {
@@ -44,6 +45,7 @@ public class CountryRepository extends AbstractRepository {
      * @param fieldName - the searched field
      * @return boolean - true if the field match
      */
+    @Override
     public boolean isValidField(String fieldName) {
         for (Field field : Country.class.getDeclaredFields()) {
             if (field.getName().equals(fieldName)) {

@@ -22,6 +22,7 @@ public class MovieRepository extends AbstractRepository {
      * @param value - the searched value
      * @return a Movie entity
      */
+    @Override
     public Movie findOneBy(String field, String value) {
 
         if (!isValidField(field)) {
@@ -83,6 +84,7 @@ public class MovieRepository extends AbstractRepository {
      * @param fieldName - the searched field
      * @return boolean - true if the field match
      */
+    @Override
     public boolean isValidField(String fieldName) {
         for (Field field : Movie.class.getDeclaredFields()) {
             if (field.getName().equals(fieldName)) {

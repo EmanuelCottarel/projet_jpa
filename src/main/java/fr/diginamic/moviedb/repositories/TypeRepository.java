@@ -18,6 +18,7 @@ public class TypeRepository extends AbstractRepository {
      * @param value - the searched value
      * @return a fr.diginamic.moviedb.entities.Type objet
      */
+    @Override
     public Type findOneBy(String field, String value) {
 
         if (!isValidField(field)) {
@@ -45,6 +46,7 @@ public class TypeRepository extends AbstractRepository {
      * @param fieldName - the searched field
      * @return boolean - true if the field match
      */
+    @Override
     public boolean isValidField(String fieldName) {
         for (Field field : Type.class.getDeclaredFields()) {
             if (field.getName().equals(fieldName)) {

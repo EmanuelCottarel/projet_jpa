@@ -1,22 +1,17 @@
 package fr.diginamic.moviedb.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.diginamic.moviedb.entities.Actor;
 import fr.diginamic.moviedb.entities.Role;
-import fr.diginamic.utils.ConnectionDb;
-import jakarta.persistence.EntityManager;
 
 import java.io.IOException;
 
-public class RoleService {
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final EntityManager em = ConnectionDb.getEm();
+public class RoleService extends AbstractService {
 
     public RoleService() {
     }
 
+    @Override
     public Role create(JsonNode roleNode) throws IOException {
 
         Role role = objectMapper.readerFor(Role.class).readValue(roleNode);

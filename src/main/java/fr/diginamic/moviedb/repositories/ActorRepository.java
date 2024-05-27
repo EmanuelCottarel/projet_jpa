@@ -22,6 +22,7 @@ public class ActorRepository extends AbstractRepository {
      * @param value - the searched value
      * @return a Actor objet
      */
+    @Override
     public Actor findOneBy(String field, String value) {
 
         if (!isValidField(field)) {
@@ -48,6 +49,7 @@ public class ActorRepository extends AbstractRepository {
      * @param fieldName - the searched field
      * @return boolean - true if the field match
      */
+    @Override
     public boolean isValidField(String fieldName) {
         for (Field field : Actor.class.getDeclaredFields()) {
             if (field.getName().equals(fieldName)) {

@@ -10,15 +10,14 @@ import jakarta.transaction.Transactional;
 
 import java.io.IOException;
 
-public class TypeService {
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
+public class TypeService extends AbstractService {
 
     private final TypeRepository typeRepository = new TypeRepository();
 
     public TypeService() {
     }
 
+    @Override
     public Type create(JsonNode languageNode) throws IOException {
         Type type = typeRepository.findOneBy("name", languageNode.asText().toUpperCase());
         if (type == null) {

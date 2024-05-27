@@ -38,6 +38,12 @@ public class ActorDeserializer extends JsonDeserializer<Actor> {
         );
     }
 
+    /**
+     * Try different formatting depending on the input date format
+     * @param stringDate String
+     * @param birthDate LocalDate
+     * @return LocalDate
+     */
     private LocalDate getBirthDate(String stringDate, LocalDate birthDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy", Locale.ENGLISH);
 

@@ -30,6 +30,11 @@ public class CommonMoviesByActorsService extends AbstractMenuService {
         movies.forEach(movie -> System.out.println(" - " + movie.getTitle() + " - " + movie.getReleaseYear()));
     }
 
+    /**
+     * Ask the user for the actor and repeat the action until an actor is found in the database
+     * @param scanner Scanner
+     * @return Actor object
+     */
     private Actor findActor(Scanner scanner) {
         System.out.println("Veuillez saisir le nom de l'acteur au format 'Prenom Nom':");
         Actor actor = null;

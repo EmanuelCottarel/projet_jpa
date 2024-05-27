@@ -30,6 +30,11 @@ public class CommonActorsByMoviesService extends AbstractMenuService {
         actors.forEach(actor -> System.out.println(" - " + actor.getFullName()));
     }
 
+    /**
+     * Ask the user for the movie and repeat the action until a movie is found in the database
+     * @param scanner Scanner
+     * @return Movie object
+     */
     private Movie findMovie(Scanner scanner) {
         System.out.println("Veuillez saisir le titre du film:");
         Movie movie = null;

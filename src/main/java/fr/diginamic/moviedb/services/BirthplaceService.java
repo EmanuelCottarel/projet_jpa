@@ -1,15 +1,12 @@
 package fr.diginamic.moviedb.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.diginamic.moviedb.entities.Birthplace;
 import fr.diginamic.moviedb.repositories.BirthplaceRepository;
 
 import java.io.IOException;
 
-public class BirthplaceService {
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
+public class BirthplaceService extends AbstractService{
 
     private final BirthplaceRepository birthplaceRepository = new BirthplaceRepository();
 
