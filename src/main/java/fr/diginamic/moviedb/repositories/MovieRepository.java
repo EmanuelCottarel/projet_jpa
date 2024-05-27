@@ -1,6 +1,7 @@
 package fr.diginamic.moviedb.repositories;
 
 import fr.diginamic.moviedb.entities.Actor;
+import fr.diginamic.moviedb.entities.Language;
 import fr.diginamic.moviedb.entities.Movie;
 import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
@@ -11,7 +12,7 @@ import jakarta.persistence.TypedQuery;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class MovieRepository extends AbstractRepository {
+public class MovieRepository extends AbstractRepository<Movie> {
 
     private final EntityManager em = ConnectionDb.getEm();
 
@@ -93,4 +94,5 @@ public class MovieRepository extends AbstractRepository {
         }
         return false;
     }
+
 }

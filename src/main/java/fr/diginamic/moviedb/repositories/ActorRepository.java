@@ -1,7 +1,6 @@
 package fr.diginamic.moviedb.repositories;
 
 import fr.diginamic.moviedb.entities.Actor;
-import fr.diginamic.moviedb.entities.Language;
 import fr.diginamic.moviedb.entities.Movie;
 import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
@@ -12,7 +11,7 @@ import jakarta.persistence.TypedQuery;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class ActorRepository extends AbstractRepository {
+public class ActorRepository extends AbstractRepository<Actor> {
 
     private final EntityManager em = ConnectionDb.getEm();
 
@@ -59,6 +58,7 @@ public class ActorRepository extends AbstractRepository {
         return false;
     }
 
+
     /**
      * Find common actors between two different movies
      * @param movie1
@@ -72,4 +72,6 @@ public class ActorRepository extends AbstractRepository {
                 .setParameter("movie2", movie2)
                 .getResultList();
     }
+
+
 }

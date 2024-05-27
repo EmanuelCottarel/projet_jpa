@@ -9,7 +9,9 @@ import jakarta.persistence.TypedQuery;
 
 import java.lang.reflect.Field;
 
-public class BirthplaceRepository extends AbstractRepository {
+public class BirthplaceRepository extends AbstractRepository<Birthplace> {
+
+    private final EntityManager em = ConnectionDb.getEm();
 
     /**
      * Find one Birthplace according to the field in parameter
@@ -54,4 +56,5 @@ public class BirthplaceRepository extends AbstractRepository {
         }
         return false;
     }
+
 }

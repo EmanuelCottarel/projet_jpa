@@ -2,15 +2,16 @@ package fr.diginamic.moviedb.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
 
 import java.io.IOException;
 
 public abstract class AbstractService {
 
-    protected ObjectMapper objectMapper;
+    protected ObjectMapper objectMapper = new ObjectMapper();
 
-    protected EntityManager em;
+    protected EntityManager em = ConnectionDb.getEm();
 
     /**
      * Create a new Object

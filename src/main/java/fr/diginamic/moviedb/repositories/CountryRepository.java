@@ -9,7 +9,9 @@ import jakarta.persistence.TypedQuery;
 
 import java.lang.reflect.Field;
 
-public class CountryRepository extends AbstractRepository {
+public class CountryRepository extends AbstractRepository<Country> {
+
+    private final EntityManager em = ConnectionDb.getEm();
 
     /**
      * Find one Country according to the field in parameter
@@ -54,4 +56,5 @@ public class CountryRepository extends AbstractRepository {
         }
         return false;
     }
+
 }

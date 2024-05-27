@@ -1,6 +1,6 @@
 package fr.diginamic.moviedb.repositories;
 
-public abstract class AbstractRepository {
+public abstract class AbstractRepository<T> {
 
     /**
      * Find One Object for a given field
@@ -8,7 +8,7 @@ public abstract class AbstractRepository {
      * @param value - the searched value
      * @return the result of the search: an Object or null
      */
-    public abstract Object findOneBy(String field, String value);
+    public abstract T findOneBy(String field, String value);
 
     /**
      * Check if the given string match one of the entity fields to avoid SQL injections
@@ -16,4 +16,6 @@ public abstract class AbstractRepository {
      * @return true if the field exists in the matching Entity else false
      */
     public abstract boolean isValidField(String fieldName);
+
+
 }

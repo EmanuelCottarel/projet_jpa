@@ -19,7 +19,12 @@ public class MovieDeserializer extends JsonDeserializer<Movie> {
         String location = "";
         if (node.has("lieuTournage")) {
             JsonNode locationNode = node.get("lieuTournage");
-            location = location.concat(locationNode.get("ville").asText()).concat(", ").concat(locationNode.get("etatDept").asText()).concat(", ").concat(locationNode.get("pays").asText());
+            location = location
+                    .concat(locationNode.get("ville").asText())
+                    .concat(locationNode.get("ville").asText().isEmpty() ? "" : ", ")
+                    .concat(locationNode.get("etatDept").asText())
+                    .concat(", ")
+                    .concat(locationNode.get("pays").asText());
         }
 
         return new Movie(

@@ -1,6 +1,5 @@
 package fr.diginamic.moviedb.repositories;
 
-import fr.diginamic.moviedb.entities.Country;
 import fr.diginamic.moviedb.entities.Language;
 import fr.diginamic.utils.ConnectionDb;
 import jakarta.persistence.EntityManager;
@@ -10,7 +9,9 @@ import jakarta.persistence.TypedQuery;
 
 import java.lang.reflect.Field;
 
-public class LanguageRepository extends AbstractRepository {
+public class LanguageRepository extends AbstractRepository<Language> {
+
+    private final EntityManager em = ConnectionDb.getEm();
 
     /**
      * Find one fr.diginamic.moviedb.entities.Language according to the field in parameter
@@ -55,4 +56,5 @@ public class LanguageRepository extends AbstractRepository {
         }
         return false;
     }
+
 }
